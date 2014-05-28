@@ -83,7 +83,6 @@ if [ -e "${HOME}/.git-completion.bash" ] ; then
    source "${HOME}"/.git-completion.bash 
 fi 
 
-export PATH=$PATH:~/GitHub
+export PATH=$PATH:~/GitHub:~/bin
 
 export TERM=xterm-256color
-
