@@ -46,10 +46,11 @@
    autocorrect = 1
 
 [alias]
-	st = status
+	st = status --ignore-submodules
 	br = branch
 	ci = commit
 	co = checkout
+   ch = cherry origin -v --abbrev=7
 	c-p = cherry-pick
 	di = diff
 	dt = difftool
@@ -57,5 +58,10 @@
    l = log --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset'
    rp = remote prune origin
    chmod = update-index --chmod=+x
-	da = diffall
+	da = !sh ~/bin/diffall.sh
    dtree = diff-tree --no-commit-id --name-status -r 
+   ahead = log --oneline origin..head
+   behind = log --oneline head..origin
+   mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master
+[push]
+	default = nothing
