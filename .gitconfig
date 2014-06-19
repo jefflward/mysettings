@@ -4,12 +4,12 @@
    prompt = false
 [difftool "bcomp"]
    #use cygpath to transform cygwin path $LOCAL (something like /tmp/U5VvP1_abc) to windows path, because bcomp is a windows software
-   cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" "$(cygpath -w $LOCAL)" "$REMOTE"
+   cmd = \"c:/Program Files (x86)/Beyond Compare 3/BComp.exe\" "$(cygpath -w $LOCAL)" "$REMOTE"
 [merge]
    tool = bcomp
 [mergetool "bcomp"]
    trustExitCode = true
-   cmd = \"c:/program files (x86)/beyond compare 3/bcomp.exe\" "$LOCAL" "$REMOTE" "$BASE" -savetarget="$MERGED" 
+   cmd = \"c:/Program Files (x86)/Beyond Compare 3/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" "$MERGED" 
 
 [core]
    autocrlf = true
@@ -62,6 +62,6 @@
    dtree = diff-tree --no-commit-id --name-status -r 
    ahead = log --oneline origin..head
    behind = log --oneline head..origin
-   mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master
+   mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master;git push origin --delete `git rev-parse --abbrev-ref HEAD`
 [push]
 	default = nothing
