@@ -9,7 +9,7 @@
    tool = bcomp
 [mergetool "bcomp"]
    trustExitCode = true
-   cmd = \"c:/Program Files (x86)/Beyond Compare 3/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" "$MERGED" 
+   cmd = \"c:/Program Files (x86)/Beyond Compare 3/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" -savetarget="$MERGED"
 
 [core]
    autocrlf = true
