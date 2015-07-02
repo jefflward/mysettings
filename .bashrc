@@ -1,24 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # .bashrc
 
 # User specific aliases and functions
@@ -30,8 +9,14 @@ alias   l='ls -al -G --color'
 alias   lt='ls -alrt -G --color'
 alias   c='clear'
 alias   h='history'
+alias   gvim='/cygdrive/c/Program\ Files\ \(x86\)/Vim/vim74/gvim'
 
-alias   gvim="~/bin/gvim"
+alias   vs='cygstart `find . -maxdepth 2 -name "*.sln"`'
+
+alias   less='less -X '
+
+alias   ssh-agent-cyg='eval `ssh-agent -s`'
+set -o vi
 
 # Fixes the prompt wrapping on itself.  No idea why this works...
 alias   fix_term='kill -WINCH $$'
@@ -52,6 +37,10 @@ export PATH=$PATH:~/GitHub:~/bin
 
 export TERM=xterm-256color
 
+if [ -e /dev/clipboard ]; then
+   alias pbcopy='cat >/dev/clipboard'
+   alias pbpaste='cat /dev/clipboard'
+fi
 
 # PROMPT for git
 
@@ -73,11 +62,14 @@ git rev-parse --git-dir &> /dev/null
 behind=$(git log --oneline HEAD..origin 2> /dev/null | wc -l)
 ahead=$(git log --oneline origin..HEAD 2> /dev/null | wc -l)
 git_status="$(git status 2> /dev/null)"
-branch_pattern="^# On branch ([^${IFS}]*)"
-remote_pattern="# Your branch is (.*) of"
-diverge_pattern="# Your branch and (.*) have diverged"
+branch_pattern="^On branch ([^${IFS}]*)"
+remote_pattern="Your branch is (.*) of"
+diverge_pattern="Your branch and (.*) have diverged"
+rebase_pattern="You are currently rebasing branch '(.*)' on '(.*)'"
 if [[ ! ${git_status}} =~ "working directory clean" ]]; then
-  if [[ ${git_status}} =~ "Changes not staged for commit" ]]; then
+  if [[ ${git_status} =~ ${rebase_pattern} ]]; then
+    state="${LIGHT_GRAY} ${LIGHT_RED}rebasing${LIGHT_GRAY}"
+  elif [[ ${git_status}} =~ "Changes not staged for commit" ]]; then
     state="${RED}\xE2\x99\xA6"
   elif [[ ${git_status}} =~ "Changes to be committed" ]]; then
     state="${YELLOW}\xE2\x99\xA6"
@@ -96,7 +88,7 @@ fi
 if [[ ${git_status} =~ ${diverge_pattern} ]]; then
   remote="${YELLOW}^v"
 fi
-if [[ ${git_status} =~ ${branch_pattern} ]]; then
+if [[ ${git_status} =~ ${branch_pattern} || ${git_status} =~ ${rebase_pattern} ]]; then
   branch=${BASH_REMATCH[1]}
   ahead_color=${LIGHT_GRAY}
   behind_color=${LIGHT_GRAY}
