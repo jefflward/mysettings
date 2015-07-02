@@ -16,12 +16,12 @@ set background=dark
 set number        " Show line numbers
 "set mouse=a      " Enable the mouse
 
-imap jj <Esc>
+"imap jj <Esc>
 
 set encoding=utf-8
 set fileencodings=utf-8
 
-set guifont=Lucida_Console:h9:cANSI
+set guifont=Courier_New:h10:cANSI
 
 set complete=.,w,b,u,t  " :help ins-completion
 
