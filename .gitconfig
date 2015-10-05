@@ -63,8 +63,8 @@
    ahead = log --oneline origin..head
    behind = log --oneline head..origin
    mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master
-   permission-reset = "!git diff -p | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
-   
+	permission-reset = "!git diff -p | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
+
 [push]
 	default = nothing
 [rerere]

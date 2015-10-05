@@ -15,6 +15,7 @@ alias   vs='cygstart `find . -maxdepth 2 -name "*.sln"`'
 
 alias   less='less -X '
 
+#alias   gvim="~/bin/gvim"
 alias   ssh-agent-cyg='eval `ssh-agent -s`'
 set -o vi
 
@@ -55,50 +56,24 @@ LIGHT_GREEN="\[\033[1;32m\]"
 WHITE="\[\033[1;37m\]"
 LIGHT_GRAY="\[\033[0;37m\]"
 COLOR_NONE="\[\e[0m\]"
+
+ahead_color=${LIGHT_GRAY}
+behind_color=${LIGHT_GRAY}
  
 function parse_git_branch {
- 
-git rev-parse --git-dir &> /dev/null
-behind=$(git log --oneline HEAD..origin 2> /dev/null | wc -l)
-ahead=$(git log --oneline origin..HEAD 2> /dev/null | wc -l)
-git_status="$(git status 2> /dev/null)"
-branch_pattern="^On branch ([^${IFS}]*)"
-remote_pattern="Your branch is (.*) of"
-diverge_pattern="Your branch and (.*) have diverged"
-rebase_pattern="You are currently rebasing branch '(.*)' on '(.*)'"
-if [[ ! ${git_status}} =~ "working directory clean" ]]; then
-  if [[ ${git_status} =~ ${rebase_pattern} ]]; then
-    state="${LIGHT_GRAY} ${LIGHT_RED}rebasing${LIGHT_GRAY}"
-  elif [[ ${git_status}} =~ "Changes not staged for commit" ]]; then
-    state="${RED}\xE2\x99\xA6"
-  elif [[ ${git_status}} =~ "Changes to be committed" ]]; then
-    state="${YELLOW}\xE2\x99\xA6"
-  fi
-else
-  state="${GREEN}\xE2\x99\xA6"
-fi
-# add an else if or two here if you want to get more specific
-if [[ ${git_status} =~ ${remote_pattern} ]]; then
-  if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-    remote="${YELLOW}^"
-  else
-    remote="${YELLOW}v"
-  fi
-fi
-if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-  remote="${YELLOW}^v"
-fi
-if [[ ${git_status} =~ ${branch_pattern} || ${git_status} =~ ${rebase_pattern} ]]; then
-  branch=${BASH_REMATCH[1]}
-  ahead_color=${LIGHT_GRAY}
-  behind_color=${LIGHT_GRAY}
+git_dir=$(git rev-parse --git-dir 2> /dev/null)
+if [[ ${git_dir} =~ ".git" ]]; then
+  head=$(more $git_dir/HEAD)
+  branch=${head##*/} 
+  behind=$(git log --oneline HEAD..origin 2> /dev/null | wc -l)
+  ahead=$(git log --oneline origin..HEAD 2> /dev/null | wc -l)
   if [[ ${ahead} > 0 ]]; then
     ahead_color=${MAGENTA}
   fi
   if [[ ${behind} > 0 ]]; then
     behind_color=${RED}
   fi
-  echo -e " (${branch} ${behind_color}${behind}${LIGHT_GRAY}|${ahead_color}${ahead}${GREEN})${remote}${state}"
+  echo -e " (${branch} ${behind_color}${behind}${LIGHT_GRAY}|${ahead_color}${ahead}${GREEN})${remote}"
 fi
 }
  
