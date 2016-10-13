@@ -69,3 +69,5 @@
 	default = nothing
 [rerere]
 	enabled = true
+[rebase]
+	autosquash = true
