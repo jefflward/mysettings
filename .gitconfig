@@ -4,12 +4,12 @@
    prompt = false
 [difftool "bcomp"]
    #use cygpath to transform cygwin path $LOCAL (something like /tmp/U5VvP1_abc) to windows path, because bcomp is a windows software
-   cmd = \"c:/Program Files (x86)/Beyond Compare 4/BComp.exe\" "$(cygpath -w $LOCAL)" "$REMOTE"
+   cmd = \"c:/Program Files/Beyond Compare 4/BComp.exe\" "$(cygpath -w $LOCAL)" "$REMOTE"
 [merge]
    tool = bcomp
 [mergetool "bcomp"]
    trustExitCode = true
-   cmd = \"c:/Program Files (x86)/Beyond Compare 4/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+   cmd = \"c:/Program Files/Beyond Compare 4/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
 [core]
    autocrlf = true
