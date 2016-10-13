@@ -60,7 +60,8 @@
    chmod = update-index --chmod=+x
 	da = !sh ~/bin/diffall.sh
    dtree = diff-tree --no-commit-id --name-status -r 
-   ahead = log --oneline origin..head
+   ahead = log --oneline --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin..head
+   aheadof = "!git log --oneline --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin/$1..head"
    behind = log --oneline head..origin
    mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master
 	permission-reset = "!git diff -p | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
