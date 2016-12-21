@@ -12,6 +12,7 @@ alias   h='history'
 alias   gvim='/cygdrive/c/Program\ Files\ \(x86\)/Vim/vim74/gvim'
 
 alias   vs='cygstart `find . -maxdepth 2 -name "*.sln"`'
+alias   open='cygstart'
 
 alias   less='less -X '
 
