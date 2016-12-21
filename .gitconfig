@@ -58,7 +58,7 @@
    l = log --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset'
    rp = remote prune origin
    chmod = update-index --chmod=+x
-	da = !sh ~/bin/diffall.sh
+	da = "!for name in $(git diff --ignore-submodules --name-only $1); do git difftool $1 $name & done"
    dtree = diff-tree --no-commit-id --name-status -r 
    ahead = log --oneline --graph --pretty=format:'%C(magenta)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin..head
    aheadof = "!git log --oneline --graph --pretty=format:'%C(magenta)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin/$1..head"
