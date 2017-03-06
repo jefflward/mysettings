@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/cygdrive/c/Projects/cloud-services/src/Common/PostPublish.IntegrationTests/Configs'
-let g:netrw_dirhist_2='/cygdrive/c/Projects/cloud-services/src/Test'
-let g:netrw_dirhist_3='/cygdrive/c/GitHub/CloudServices-Tools/CloudClient/CloudClient'
-let g:netrw_dirhist_4='/cygdrive/c/GitHub/Fathom/Fathom.CloudService'
-let g:netrw_dirhist_5='/cygdrive/c/GitHub/Identity/MachineSetup'

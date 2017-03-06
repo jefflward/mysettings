@@ -46,25 +46,31 @@
    autocorrect = 1
 
 [alias]
-	st = status --ignore-submodules
 	br = branch
+	c-p = cherry-pick
 	ci = commit
 	co = checkout
-   ch = cherry origin -v --abbrev=7
-	c-p = cherry-pick
+	da = "!for name in $(git diff --ignore-submodules --name-only $1); do git difftool $1 $name & done"
 	di = diff
 	dt = difftool
 	mt = mergetool
-   l = log --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset'
-   rp = remote prune origin
-   chmod = update-index --chmod=+x
-	da = "!for name in $(git diff --ignore-submodules --name-only $1); do git difftool $1 $name & done"
-   dtree = diff-tree --no-commit-id --name-status -r 
+	permission-reset = "!git diff -p | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
+	st = status --ignore-submodules
    ahead = log --oneline --graph --pretty=format:'%C(magenta)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin..head
    aheadof = "!git log --oneline --graph --pretty=format:'%C(magenta)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin/$1..head"
    behind = log --oneline head..origin
+   ch = cherry origin -v --abbrev=7
+   chmod = update-index --chmod=+x
+   dtree = diff-tree --no-commit-id --name-status -r 
+   fix = commit --fixup
+   l = log --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset'
    mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master
-	permission-reset = "!git diff -p | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
+   rp = remote prune origin
+
+# This avoids cygwin setting everything to 755 when created
+# Got the info here https://cygwin.com/ml/cygwin/2011-02/msg00121.html
+# After cloning the repository run this alias on the src folder
+   fixperms = setfacl -m d:u::rw-,d:g::r--,d:o:r-- . 
 
 [push]
 	default = nothing
