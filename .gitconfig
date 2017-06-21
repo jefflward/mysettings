@@ -51,7 +51,9 @@
 	ci = commit
 	co = checkout
 	da = "!for name in $(git diff --ignore-submodules --name-only $1); do git difftool $1 $name & done"
+	das = "!for name in $(git diff --staged --ignore-submodules --name-only $1); do git difftool --staged $1 $name & done"
 	di = diff
+	sdi = !~/bin/cdiff.py -s
 	dt = difftool
 	mt = mergetool
 	permission-reset = "!git diff -p | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
@@ -69,8 +71,8 @@
 
 # This avoids cygwin setting everything to 755 when created
 # Got the info here https://cygwin.com/ml/cygwin/2011-02/msg00121.html
-# After cloning the repository run this alias on the src folder
-   fixperms = setfacl -m d:u::rw-,d:g::r--,d:o:r-- . 
+# After cloning the repository run this alias on the src folder (Does other bad things)
+#   fixperms = setfacl -m d:u::rw-,d:g::r--,d:o:r-- .
 
 [push]
 	default = nothing
