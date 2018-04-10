@@ -12,7 +12,7 @@
    cmd = \"c:/Program Files/Beyond Compare 4/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
 [core]
-   autocrlf = true
+#autocrlf = true
    # For the vim handicapped
    # editor = npp.sh
    editor = vim
@@ -68,6 +68,10 @@
    l = log --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset'
    mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master
    rp = remote prune origin
+   lp = !git branch -d $(git branch --merged | grep -v master)
+
+# Show history for commits for a line or section of a file
+# git log -L 95,100:$filename
 
 # This avoids cygwin setting everything to 755 when created
 # Got the info here https://cygwin.com/ml/cygwin/2011-02/msg00121.html

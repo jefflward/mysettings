@@ -15,15 +15,31 @@ alias   vs='cygstart `find . -maxdepth 2 -name "*.sln"`'
 alias   open='cygstart'
 
 alias   less='less -X '
+alias   blame="git blame --date=format: $1 | awk '{sub(/\(.*\s+/,\"\")}1'"
 
 #alias   gvim="~/bin/gvim"
 alias   ssh-agent-cyg='eval `ssh-agent -s`'
 set -o vi
 
+# Example for loop to append .jpg to files
+#  for i in $(ls * | grep -v jpg); do mv $i $i.jpg; done
+
 # Fixes the prompt wrapping on itself.  No idea why this works...
 alias   fix_term='kill -WINCH $$'
 
 export LS_COLORS='no=00:fi=00:di=00;36:ln=00;35:ex=00;92'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
 
 export nodosfilewarning
 
@@ -89,3 +105,22 @@ fi
 }
  
 PROMPT_COMMAND=prompt_func
+
+umask 022
+
+command_not_found_handle() {
+    if cmd.exe /c "(where $1 || (help $1 |find /V \"/?\")) >nul 2>nul && ($* || exit 0)"; then
+        return $?
+    else
+        if [ -x /usr/lib/command-not-found ]; then
+           /usr/lib/command-not-found -- "$1"
+           return $?
+        elif [ -x /usr/share/command-not-found/command-not-found ]; then
+           /usr/share/command-not-found/command-not-found -- "$1"
+           return $?
+        else
+           printf "%s: command not found\n" "$1" >&2
+           return 127
+        fi
+    fi
+}
