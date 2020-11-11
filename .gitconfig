@@ -12,7 +12,8 @@
    cmd = \"c:/Program Files/Beyond Compare 4/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
 [core]
-#autocrlf = true
+   # autocrlf = true
+   whitespace = cr-at-eol
    # For the vim handicapped
    # editor = npp.sh
    editor = vim
