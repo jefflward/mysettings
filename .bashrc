@@ -81,7 +81,7 @@ function parse_git_branch {
 git_dir=$(git rev-parse --git-dir 2> /dev/null)
 if [[ ${git_dir} =~ ".git" ]]; then
   head=$(more $git_dir/HEAD)
-  branch=${head##*/} 
+  branch=$(git branch --show-current 2> /dev/null)
   behind=$(git log --oneline HEAD..origin 2> /dev/null | wc -l)
   ahead=$(git log --oneline origin..HEAD 2> /dev/null | wc -l)
   if [[ ${ahead} > 0 ]]; then
