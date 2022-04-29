@@ -1,22 +1,20 @@
-[diff]
-   tool = bcomp
-[difftool]
-   prompt = false
-[difftool "bcomp"]
-   #use cygpath to transform cygwin path $LOCAL (something like /tmp/U5VvP1_abc) to windows path, because bcomp is a windows software
-   cmd = \"c:/Program Files/Beyond Compare 4/BComp.exe\" "$(cygpath -w $LOCAL)" "$REMOTE"
-[merge]
-   tool = bcomp
-[mergetool "bcomp"]
-   trustExitCode = true
-   cmd = \"c:/Program Files/Beyond Compare 4/BComp.exe\" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
-
 [core]
    # autocrlf = true
-   whitespace = cr-at-eol
+   #whitespace = cr-at-eol
    # For the vim handicapped
    # editor = npp.sh
    editor = vim
+	autocrlf = false
+	safecrlf = false
+
+[diff]
+  tool = bc3
+[merge]
+  tool = bc3
+[mergetool "bc3"]
+  trustExitCode = true
+[difftool]
+  prompt = false
 
 [color]
    branch = auto
@@ -54,22 +52,25 @@
 	da = "!for name in $(git diff --ignore-submodules --name-only $1); do git difftool $1 $name & done"
 	das = "!for name in $(git diff --staged --ignore-submodules --name-only $1); do git difftool --staged $1 $name & done"
 	di = diff
-	sdi = !~/bin/cdiff.py -s
+	dis = diff --staged
 	dt = difftool
 	mt = mergetool
 	permission-reset = "!git diff -p | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
 	st = status --ignore-submodules
    ahead = log --oneline --graph --pretty=format:'%C(magenta)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin..head
    aheadof = "!git log --oneline --graph --pretty=format:'%C(magenta)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' origin/$1..head"
+   ahead1 = "!git ahead `git st | grep modified | cut -d':' -f2`"
+   blame1 = "!git blame HEAD `git st | grep modified | head -1 | cut -d':' -f2`"
    behind = log --oneline head..origin
    ch = cherry origin -v --abbrev=7
    chmod = update-index --chmod=+x
    dtree = diff-tree --no-commit-id --name-status -r 
    fix = commit --fixup
+   fix1 = "!git ahead1 | cut -d' ' -f2 | xargs git fix"
    l = log --graph --pretty=format:'%C(white)%h%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset'
    mergepr = !git push origin origin/`git rev-parse --abbrev-ref HEAD`:master
    rp = remote prune origin
-   lp = !git branch -d $(git branch --merged | grep -v master)
+   lp = !git branch -d $(git branch --merged | grep -v main)
 
 # Show history for commits for a line or section of a file
 # git log -L 95,100:$filename
@@ -85,3 +86,5 @@
 	enabled = true
 [rebase]
 	autosquash = true
+[mergetool]
+	keepBackup = false

@@ -2,6 +2,7 @@
 
 # User specific aliases and functions
 
+alias   ls='ls --color'
 alias   ll='ls -l --color'
 alias   ls='ls -G --color'
 alias   la='ls -a -G --color'
@@ -43,9 +44,9 @@ fi
 
 export nodosfilewarning
 
-#if [ -n "$PS1" ]; then PS1='\u@\h:\w\$ '; fi
+if [ -n "$PS1" ]; then PS1='\u@\h:\w\$ '; fi
 
-#PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 
 if [ -e "${HOME}/.git-completion.bash" ] ; then 
    source "${HOME}"/.git-completion.bash 
