@@ -4,14 +4,14 @@
    # For the vim handicapped
    # editor = npp.sh
    editor = vim
-	autocrlf = false
+	autocrlf = true
 	safecrlf = false
 
 [diff]
-  tool = bc3
+  tool = bc4
 [merge]
-  tool = bc3
-[mergetool "bc3"]
+  tool = bc4
+[mergetool "bc4"]
   trustExitCode = true
 [difftool]
   prompt = false
