@@ -1,0 +1,14 @@
+name: integration-branch-cleanup
+# Run this workflow every time a branch has been deleted. Will cause integration branches to also be removed.
+on: delete
+jobs:
+  delete:
+     if: github.event.ref_type == 'branch'
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/github-script@v3
+        name: Clean up integration branch
+        run: |
+          BRANCH=${{ steps.get_hash.outputs.branch }}
+          echo "Clean up for branch ${{BRANCH}}"
+          git push origin --delete integration/$BRANCH
