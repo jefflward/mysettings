@@ -10,5 +10,5 @@ jobs:
       - name: Clean up integration branch
         run: |
           BRANCH=${{ github.event.ref }}
-          echo "Clean up for branch ${{BRANCH}}"
+          echo "Clean up for branch $BRANCH"
           git push origin --delete integration/$BRANCH
