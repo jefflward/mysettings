@@ -2,7 +2,7 @@ name: integration-branch-cleanup
 # Run this workflow every time a branch has been deleted. Will cause integration branch to also be removed.
 on: delete
 jobs:
-  cleanup_integrated_branch:
+  cleanup_integration_branch:
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
