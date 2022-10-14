@@ -9,6 +9,6 @@ jobs:
       - uses: actions/github-script@v3
       - name: Clean up integration branch
         run: |
-          BRANCH=${{ steps.get_hash.outputs.branch }}
+          BRANCH=${{ github.event.ref }}
           echo "Clean up for branch ${{BRANCH}}"
           git push origin --delete integration/$BRANCH
